@@ -16,7 +16,7 @@ public class CannonPivot implements SubsystemFramework {
     private Limelight limelight;
     private int degree;
 
-    private static double Average_Ticks_Per_Degree;
+    private static double Average_Ticks_Per_Degree = Constants.Average_Ticks_Per_Degree;
     private double CannonPivot_Kp = Constants.CannonPivot_Kp;
     private double CannonPivot_Ki = Constants.CannonPivot_Ki;
     private double CannonPivot_Kd = Constants.CannonPivot_Kd;
@@ -55,7 +55,7 @@ public class CannonPivot implements SubsystemFramework {
     }
 
     public void update() { 
-        if(StartPosition()) {
+        /*if(StartPosition()) {
             masterCannonPivot.set(0.1);
         }
         else if(AngledPosition()) {
@@ -64,9 +64,10 @@ public class CannonPivot implements SubsystemFramework {
         else {
             masterCannonPivot.set(0);
         }
-    }
-        /*CannonPivotStates newState = state;
-        limelight.Update_Limelight_Tracking();
+        outputToSmartDashboard();
+    } */
+        CannonPivotStates newState = state;
+        //limelight.Update_Limelight_Tracking();
         switch(state){
             case StartPosition:
                 masterCannonPivot.set(ControlMode.Position, setPosition(0));
@@ -76,7 +77,10 @@ public class CannonPivot implements SubsystemFramework {
                 }
                 break;
             case AngledPosition:
-                masterCannonPivot.set(ControlMode.Position, setPosition(setupAngle()));
+                masterCannonPivot.set(ControlMode.Position, setPosition(15));
+                if(StartPosition()) {
+                    newState = CannonPivotStates.StartPosition;
+                }
                 break;
             default:
                 newState = state;
@@ -86,7 +90,7 @@ public class CannonPivot implements SubsystemFramework {
             state = newState;
         }
         outputToSmartDashboard();
-    } */
+    } 
     
     public void outputToSmartDashboard() {
         SmartDashboard.putNumber("Degree", degree);
@@ -116,7 +120,7 @@ public class CannonPivot implements SubsystemFramework {
     }
 
     public int setupAngle() {
-        if (limelight.getLimelightCamtran(2) == 1){
+        /*if (limelight.getLimelightCamtran(2) == 1){
             return 52;
         }
         else if (limelight.getLimelightCamtran(2) == 2){
@@ -154,7 +158,7 @@ public class CannonPivot implements SubsystemFramework {
         }
         else if (limelight.getLimelightCamtran(2) == 13){
             return 52;
-        }
-        return 90;
-    }
+        }*/
+        return 0;
+    } 
 }

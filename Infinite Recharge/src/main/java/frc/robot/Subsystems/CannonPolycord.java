@@ -4,26 +4,26 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+//import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants;
 import frc.robot.Hardware;
 import frc.robot.Lib.SubsystemFramework;
 
 public class CannonPolycord implements SubsystemFramework {
-    private WPI_VictorSPX polycordMasterMotor;
+    private WPI_TalonSRX polycordMasterMotor;
     private WPI_VictorSPX polycordSlaveMotor;
-    private int time = 0;
-    private double Average_Ticks_Per_Inch;
+    //private int time = 0;
+    //private double Average_Ticks_Per_Inch;
     private double Cannonpolycord_Kf;
     private double Cannonpolycord_Kp;
     private double Cannonpolycord_Ki;
     private double Cannonpolycord_Kd;
 
-    private DigitalInput limiter;
+    //private DigitalInput limiter;
     
-    public CannonpolycordStates state = CannonpolycordStates.Off;
+    public static CannonpolycordStates state = CannonpolycordStates.Off;
     
-    public CannonPolycord(WPI_VictorSPX polycordMasterMotor, WPI_VictorSPX polycordSlaveMotor) {
+    public CannonPolycord(WPI_TalonSRX polycordMasterMotor, WPI_VictorSPX polycordSlaveMotor) {
         this.polycordMasterMotor = polycordMasterMotor;
         this.polycordSlaveMotor = polycordSlaveMotor;
     }
@@ -31,34 +31,26 @@ public class CannonPolycord implements SubsystemFramework {
     public enum CannonpolycordStates {
         Off, Index, Shooting;
     }
-    public boolean Shooting() {
-        return(Hardware.driverPad.getRawButton(Constants.SHOOT));
-    }
     
     public void update() {
         CannonpolycordStates newState = state;
         switch(state) {
             case Off:
                 polycordMasterMotor.set(0);
-                if(!limiter.get()){
-                    newState = CannonpolycordStates.Index;
-                }
+                
                 break;
             case Index:
-                polycordMasterMotor.set(0.1);
-                time += 1;
-                if(Shooting()) {
-                    newState = CannonpolycordStates.Shooting;
-                }
-                else if(time == 2) {
-                    newState = CannonpolycordStates.Off;
-                }
+                //polycordMasterMotor.set(0.1);
+                //time += 1; 
+                
+                //else if(time == 2) {// Time is theoretical, it has not been calculated yet
+                //    time = 0;
+                //    newState = CannonpolycordStates.Off;
+                //}
                 break;
             case Shooting:
-                polycordMasterMotor.set(0.5);
-                if(!Shooting()) {
-                    newState = CannonpolycordStates.Off;
-                }
+                polycordMasterMotor.set(1);
+                
                 break;
             default:
                 newState = CannonpolycordStates.Off;

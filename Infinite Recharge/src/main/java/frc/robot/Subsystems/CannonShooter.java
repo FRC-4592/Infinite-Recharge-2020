@@ -6,6 +6,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants;
 import frc.robot.Hardware;
 import frc.robot.Lib.SubsystemFramework;
+import frc.robot.Subsystems.CannonPolycord.CannonpolycordStates;
+import frc.robot.Subsystems.CannonPolycord;
 
 public class CannonShooter implements SubsystemFramework {
     private WPI_TalonSRX masterShooter;
@@ -22,8 +24,8 @@ public class CannonShooter implements SubsystemFramework {
     }    
     
     public boolean Shoot() {
-        // Not gonna be a button
-        return(Hardware.driverPad.getRawAxis(Constants.SHOOT) > 0);
+        // It's going to be a trigger button on the controller
+        return(Hardware.driverPad.getRawAxis(Constants.SHOOT) > 0.1);
     }
     public void update() {
         CannonShooterStates newState = state;
@@ -36,7 +38,9 @@ public class CannonShooter implements SubsystemFramework {
                 }
                 break;
             case Shoot:
-                masterShooter.set(1);
+                masterShooter.set(1); //Not gonna be like this, instead going to be a closed loop velocity PID
+                CannonPolycord.state = CannonpolycordStates.Shooting;
+                
                 if(!Shoot()) {
                     newState = CannonShooterStates.Off;
                 }

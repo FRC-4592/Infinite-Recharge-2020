@@ -29,14 +29,14 @@ public class Hardware {
     
     public static final WPI_TalonSRX pivotMasterMotor = 
         new WPI_TalonSRX(Constants.PIVOT_MASTER_MOTOR);
-    public static final WPI_VictorSPX pivotSlaveMotor = 
-        new WPI_VictorSPX(Constants.PIVOT_SLAVE_MOTOR);
+    //public static final WPI_VictorSPX pivotSlaveMotor = 
+    //    new WPI_VictorSPX(Constants.PIVOT_SLAVE_MOTOR);
     
-    public static final WPI_VictorSPX colorWheelMotor = 
-        new WPI_VictorSPX(Constants.COLOR_SENSOR_MOTOR);
+    public static final WPI_TalonSRX colorWheelMotor = 
+        new WPI_TalonSRX(Constants.COLOR_SENSOR_MOTOR);
     
-    public static final WPI_VictorSPX polycordMasterMotor = 
-        new WPI_VictorSPX(Constants.POLYCORD_MASTER_MOTOR);
+    public static final WPI_TalonSRX polycordMasterMotor = 
+        new WPI_TalonSRX(Constants.POLYCORD_MASTER_MOTOR);
     public static final WPI_VictorSPX polycordSlaveMotor = 
         new WPI_VictorSPX(Constants.POLYCORD_SLAVE_MOTOR);
     
@@ -47,8 +47,8 @@ public class Hardware {
         new WPI_VictorSPX(Constants.WENCH_SLAVE_MOTOR);
 
     // Intake Motor
-    public static final WPI_VictorSPX intakeMotor = 
-        new WPI_VictorSPX(Constants.INTAKE_MOTOR);
+    public static final WPI_TalonSRX intakeMotor = 
+        new WPI_TalonSRX(Constants.INTAKE_MOTOR);
 
     // Joystick
     public static final Joystick driverPad = 

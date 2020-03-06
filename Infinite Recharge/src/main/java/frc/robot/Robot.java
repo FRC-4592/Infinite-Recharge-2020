@@ -14,14 +14,14 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.Lib.Loop.MultiLooper;
 import frc.robot.Subsystems.CannonPolycord;
 import frc.robot.Subsystems.CannonShooter;
-import frc.robot.Subsystems.Climber;
+//import frc.robot.Subsystems.Climber;
 import frc.robot.Subsystems.CannonPivot;
 import frc.robot.Subsystems.ColorSensor;
 import frc.robot.Subsystems.ColorWheel;
 import frc.robot.Subsystems.Drivetrain;
 import frc.robot.Subsystems.IntakeWheels;
 import frc.robot.Subsystems.Auto.AutoTest;
-// import edu.wpi.first.wpilibj2.command.CommandScheduler;
+//import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -49,7 +49,7 @@ public class Robot extends TimedRobot {
     private CannonPivot cannonPivot = new CannonPivot(Hardware.pivotMasterMotor);
     private CannonPolycord cannonPolycord = new CannonPolycord(Hardware.polycordMasterMotor, Hardware.polycordSlaveMotor);
     private CannonShooter cannonShooter = new CannonShooter(Hardware.shooterMasterMotor, Hardware.shooterSlaveMotor);
-    private Climber climber = new Climber(Hardware.wenchMasterMotor, Hardware.wenchSlaveMotor, Hardware.shifter3);
+    //private Climber climber = new Climber(Hardware.wenchMasterMotor, Hardware.wenchSlaveMotor, Hardware.shifter3);
     // Autos
     private AutoTest Auto = new AutoTest(myDrive);
     // Selectables
@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
         SSLooper.addLoopable(cannonPivot);
         SSLooper.addLoopable(cannonPolycord);
         SSLooper.addLoopable(cannonShooter);
-        SSLooper.addLoopable(climber);
+        //SSLooper.addLoopable(climber);
 
         colorSensor.setupSensors();
         colorWheel.setupSensors();
@@ -79,7 +79,7 @@ public class Robot extends TimedRobot {
         cannonPivot.setupSensors();
         cannonPolycord.setupSensors();
         cannonShooter.setupSensors();
-        climber.setupSensors();
+        //climber.setupSensors();
 
         myDrive.setupSensors();
         DriveLooper.addLoopable(myDrive);
@@ -112,8 +112,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        AutoLooper.start();
-        AutoLooper.update();
+        //AutoLooper.start();
+        //AutoLooper.update();
 
         //m_autoSelected = m_chooser.getSelected();
         // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);

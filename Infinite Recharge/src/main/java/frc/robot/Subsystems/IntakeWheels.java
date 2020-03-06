@@ -1,6 +1,6 @@
 package frc.robot.Subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -9,22 +9,28 @@ import frc.robot.Lib.SubsystemFramework;
 import frc.robot.Util.doubleSolenoid;
 
 public class IntakeWheels implements SubsystemFramework{
-    private WPI_VictorSPX intakeMotor;
+    private WPI_TalonSRX intakeMotor;
     private doubleSolenoid shifter2;
 
     public static IntakeWheelsStates state = IntakeWheelsStates.Off;
 
-    public IntakeWheels(WPI_VictorSPX intakeMotor, doubleSolenoid shifter2) {
+    public IntakeWheels(WPI_TalonSRX intakeMotor, doubleSolenoid shifter2) {
         this.intakeMotor = intakeMotor;
         this.shifter2 = shifter2;
     }
 
     public enum IntakeWheelsStates {
-        Off, Intake;
+        Off, Intake, ReverseIntake, IntakePosition;
     }
         
-    public boolean Intake(){
+    public boolean Intake() {
         return Hardware.driverPad.getRawButton(Constants.INTAKE);
+    }
+    public boolean Reverse() {
+        return Hardware.driverPad.getRawButton(Constants.REVERSE);
+    }
+    public boolean IntakePosition() {
+        return Hardware.driverPad.getRawButton(Constants.INTAKEPOSITION);
     }
     public void update() {
         IntakeWheelsStates newState = state;
@@ -34,19 +40,60 @@ public class IntakeWheels implements SubsystemFramework{
                 shifter2.close();
                 intakeMotor.set(0);
                 SmartDashboard.putString("Intake", "Off");
+                
                 if(Intake()) {
                     newState = IntakeWheelsStates.Intake;
                 }
+                else if(Reverse()) {
+                    newState = IntakeWheelsStates.ReverseIntake;
+                }
+                else if(IntakePosition()) {
+                    newState = IntakeWheelsStates.IntakePosition;
+                }
                 break;
             case Intake:
+                shifter2.open();
                 intakeMotor.set(1);
                 SmartDashboard.putString("Intake", "Intake");
-                shifter2.open();
-                if(!Intake()) {
+                
+                if(Reverse()) {
+                    newState = IntakeWheelsStates.ReverseIntake;
+                }
+                else if(IntakePosition()) {
+                    newState = IntakeWheelsStates.IntakePosition;
+                }
+                else if(!Intake()) {
                     newState = IntakeWheelsStates.Off; 
                 }
                 break;
+            case ReverseIntake:
+                shifter2.open();
+                intakeMotor.set(-1);
+                SmartDashboard.putString("Intake", "Reverse");
 
+                if(Intake()) {
+                    newState = IntakeWheelsStates.Intake;
+                }
+                else if(IntakePosition()) {
+                    newState = IntakeWheelsStates.IntakePosition;
+                }
+                else if(!Reverse()) {
+                    newState = IntakeWheelsStates.Off;
+                }
+                break;
+            case IntakePosition:
+                shifter2.open();
+                SmartDashboard.putString("Intake", "IntakePosition");
+
+                if(Intake()) {
+                    newState = IntakeWheelsStates.Intake;
+                }
+                else if(Reverse()) {
+                    newState = IntakeWheelsStates.ReverseIntake;
+                }
+                else if(!IntakePosition()) {
+                    newState = IntakeWheelsStates.Off;
+                }
             default:
                 newState = IntakeWheelsStates.Off;
                 break;

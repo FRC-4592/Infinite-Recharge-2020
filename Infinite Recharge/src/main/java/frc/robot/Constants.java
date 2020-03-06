@@ -16,10 +16,10 @@ public class Constants {
     public static final int LEFT_SLAVE_MOTOR = 4;
 
     // Cannon Motors
-    public static final int SHOOTER_MASTER_MOTOR = 0;
-    public static final int SHOOTER_SLAVE_MOTOR = 1;
-    public static final int PIVOT_MASTER_MOTOR = 2;
-    public static final int PIVOT_SLAVE_MOTOR = 3;
+    public static final int SHOOTER_MASTER_MOTOR = 1;
+    public static final int SHOOTER_SLAVE_MOTOR = 2;
+    public static final int PIVOT_MASTER_MOTOR = 3;
+    //public static final int PIVOT_SLAVE_MOTOR = 4;
     public static final int COLOR_SENSOR_MOTOR = 4;
     public static final int POLYCORD_MASTER_MOTOR = 5;
     public static final int POLYCORD_SLAVE_MOTOR = 6;
@@ -37,10 +37,10 @@ public class Constants {
     // Shifter
     public static final int SHIFTER_OPEN = 0;
     public static final int SHIFTER_CLOSE = 1;
-    public static final int SHIFTER2_OPEN = 2;
-    public static final int SHIFTER2_CLOSE = 3;
-    public static final int SHIFTER3_OPEN = 4;
-    public static final int SHIFTER3_CLOSE = 5;
+    public static final int SHIFTER2_OPEN = 4;
+    public static final int SHIFTER2_CLOSE = 5;
+    public static final int SHIFTER3_OPEN = 6;
+    public static final int SHIFTER3_CLOSE = 7;
 
     // Limit Switch
     public static final int LIMITER = 0;
@@ -58,40 +58,38 @@ public class Constants {
 
     // Intake Buttons
     public static final int INTAKE = 3; // Buttons will need to be changed later
+    public static final int REVERSE = 6;
+    public static final int INTAKEPOSITION = 9;
 
-    // Color Wheel Buttons
-    public static final int RED = 4;
-    public static final int BLUE = 5;
-    public static final int GREEN = 6;
-    public static final int YELLOW = 7;
-    public static final int SPIN = 8;
+    // Color Wheel Button
+    public static final int SPIN = 7;
 
     // Cannon Buttons
     public static final int STARTPOSITION = 9;
     public static final int ANGLEDPOSITION = 10;
 
     // Wench Buttons
-    public static final int CLIMBEROPEN = 11;
-    public static final int WENCHPULL = 12;
+    public static final int CLIMBEROPEN = 4;
+    public static final int WENCHPULL = 5;
 
     // Cannon Shoot Trigger
-    public static final int SHOOT = 2;
+    public static final int SHOOT = 3;
 
     // Drivetrain PID Values
     public static final double Drivetrain_Kf = 0;
-    public static final double Drivetrain_Kp = 0.1; //This will change but for now
+    public static final double Drivetrain_Kp = 1; //This may change but for now it's fine
     public static final double Drivetrain_Ki = 0;
     public static final double Drivetrain_Kd = 0;
     public static final double Drivetrain_Wheel_Radius = 3;
     public static final double Drivetrain_Wheel_Circumference = Drivetrain_Wheel_Radius * 2 * Math.PI;
-    public static final double Drivetrain_Gear_Ratio = 0;
+    public static final double Drivetrain_Gear_Ratio = 16.07;
 
     // Cannon Pivot PID Values
     public static final double CannonPivot_Kf = 0;
-    public static final double CannonPivot_Kp = 0;
+    public static final double CannonPivot_Kp = 0.5;
     public static final double CannonPivot_Ki = 0;
     public static final double CannonPivot_Kd = 0;
-    public static final double Average_Ticks_Per_Degree = 0;
+    public static final double Average_Ticks_Per_Degree = 60;
 
     // Drivetrain Characterization/Trajectory Values
     public static final double ksVolts = 0.0;

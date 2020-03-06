@@ -1,45 +1,61 @@
 package frc.robot.Subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import frc.robot.Constants;
 import frc.robot.Hardware;
 import frc.robot.Lib.SubsystemFramework;
+import edu.wpi.first.wpilibj.DriverStation;
 
 // Case statement for spinning to precise color
 public class ColorWheel implements SubsystemFramework {
-    private WPI_VictorSPX colorWheelMotor;
+    private WPI_TalonSRX colorWheelMotor;
     private ColorSensor colorSensor = new ColorSensor();
     private int spinCounter = 0;
     private String referenceColor = null;
 
     public ColorWheelPositions state = ColorWheelPositions.Off;
 
-    public ColorWheel(WPI_VictorSPX colorWheelMotor) {
+    public ColorWheel(WPI_TalonSRX colorWheelMotor) {
         this.colorWheelMotor = colorWheelMotor;
     }
 
     public enum ColorWheelPositions {
         Red, Yellow, Green, Blue, Off, Spin;
     }
-    
-    public boolean GoToRed() {
-        return Hardware.driverPad.getRawButton(Constants.RED);
-    }
-    public boolean GoToBlue() {
-        return Hardware.driverPad.getRawButton(Constants.BLUE);
-    }
-    public boolean GoToGreen() {
-        return Hardware.driverPad.getRawButton(Constants.GREEN);
-    }
-    public boolean GoToYellow() {
-        return Hardware.driverPad.getRawButton(Constants.YELLOW);
-    }
     public boolean Spin() {
         return Hardware.driverPad.getRawButton(Constants.SPIN);
     }
 
     public void update() {
+
+
+
+String gameData;
+gameData = DriverStation.getInstance().getGameSpecificMessage();
+if(gameData.length() > 0)
+{
+  switch (gameData.charAt(0))
+  {
+    case 'B' :
+      //Blue case code
+      break;
+    case 'G' :
+      //Green case code
+      break;
+    case 'R' :
+      //Red case code
+      break;
+    case 'Y' :
+      //Yellow case code
+      break;
+    default :
+      //This is corrupt data
+      break;
+  }
+} else {
+  //Code for no data received yet
+}
         
         ColorWheelPositions newState = state;
         switch(state) {
@@ -50,19 +66,19 @@ public class ColorWheel implements SubsystemFramework {
                 }
                 break;
             case Blue:
-                colorWheelMotor.set(1);
+                colorWheelMotor.set(0.1);
                 if (colorSensor.getColorString() == "Blue") {
                     newState = ColorWheelPositions.Off;
                 }
                 break;
             case Green:
-                colorWheelMotor.set(1);
+                colorWheelMotor.set(0.1);
                 if (colorSensor.getColorString() == "Green") {
                     newState = ColorWheelPositions.Off;
                 }
                 break;
             case Yellow:
-                colorWheelMotor.set(1);
+                colorWheelMotor.set(0.1);
                 if (colorSensor.getColorString() == "Yellow") {
                     newState = ColorWheelPositions.Off;
                 }
@@ -83,16 +99,16 @@ public class ColorWheel implements SubsystemFramework {
             case Off:
                 colorWheelMotor.set(0);
                 if (colorSensor.getColorString() != "Unknown") {
-                    if(GoToRed()){ 
+                    if(gameData.length() > 0 && gameData.charAt(0) == 'R'){ 
                         newState = ColorWheelPositions.Red;
                     }
-                    else if(GoToBlue()) {
+                    else if(gameData.length() > 0 && gameData.charAt(0) == 'B') {
                         newState = ColorWheelPositions.Blue;
                     }
-                    else if(GoToGreen()) {
+                    else if(gameData.length() > 0 && gameData.charAt(0) == 'G') {
                         newState = ColorWheelPositions.Green;
                     }
-                    else if(GoToYellow()) {
+                    else if(gameData.length() > 0 && gameData.charAt(0) == 'Y') {
                         newState = ColorWheelPositions.Yellow;
                     }
                     else if(Spin()) {

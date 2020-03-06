@@ -52,6 +52,7 @@ public class Climber implements SubsystemFramework {
                 break;
             case Off:
                 wenchMasterMotor.set(ControlMode.Position, 0);
+                shifter3.close();
                 if(ClimberOpen()) {
                     newState = ClimberStates.ClimberOpen;
                 }
