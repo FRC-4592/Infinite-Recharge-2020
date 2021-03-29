@@ -21,17 +21,17 @@ public class CannonPolycord implements SubsystemFramework {
 
     //private DigitalInput limiter;
     
-    public static CannonpolycordStates state = CannonpolycordStates.Off;
+    public static CannonPolycordStates state = CannonPolycordStates.Off;
     
     public CannonPolycord(WPI_TalonSRX polycordMasterMotor, WPI_VictorSPX polycordSlaveMotor) {
         this.polycordMasterMotor = polycordMasterMotor;
         this.polycordSlaveMotor = polycordSlaveMotor;
     }
     public CannonPolycord() {
-        
+        // Empty so other classes can control its movement
     }
 
-    public enum CannonpolycordStates {
+    public enum CannonPolycordStates {
         Off, Reverse, Shooting;
     }
 
@@ -43,44 +43,44 @@ public class CannonPolycord implements SubsystemFramework {
     }
     
     public void update() {
-        CannonpolycordStates newState = state;
+        CannonPolycordStates newState = state;
         switch(state) {
             case Off:
                 polycordMasterMotor.set(0);
                 if(Reverse()) {
-                    newState = CannonpolycordStates.Reverse;
+                    newState = CannonPolycordStates.Reverse;
                 }
                 else if(PolycordSpin()) {
-                    newState = CannonpolycordStates.Shooting;
+                    newState = CannonPolycordStates.Shooting;
                 }
                 break;
             case Reverse:
                 polycordMasterMotor.set(0.40);
                 if(PolycordSpin()) {
-                    newState = CannonpolycordStates.Shooting;
+                    newState = CannonPolycordStates.Shooting;
                 }
                 else if(!Reverse()) {
-                    newState = CannonpolycordStates.Off;
+                    newState = CannonPolycordStates.Off;
                 }
                 //time += 1; 
                 
                 //else if(time == 2) {// Time is theoretical, it has not been calculated yet
                 //    time = 0;
-                //    newState = CannonpolycordStates.Off;
+                //    newState = CannonPolycordStates.Off;
                 //}
                 break;
             case Shooting:
                 polycordMasterMotor.set(-0.50);
                 if(Reverse()) {
-                    newState = CannonpolycordStates.Reverse;
+                    newState = CannonPolycordStates.Reverse;
                 }
                 else if(!PolycordSpin()) {
-                    newState = CannonpolycordStates.Off;
+                    newState = CannonPolycordStates.Off;
                 }
                 
                 break;
             default:
-                newState = CannonpolycordStates.Off;
+                newState = CannonPolycordStates.Off;
                 break;
         }
         if (newState != state) {

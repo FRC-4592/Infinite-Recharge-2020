@@ -122,8 +122,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        //AutoLooper.start();
-        //AutoLooper.update();
+        AutoLooper.start();
+        AutoLooper.update();
 
         //m_autoSelected = m_chooser.getSelected();
         // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);

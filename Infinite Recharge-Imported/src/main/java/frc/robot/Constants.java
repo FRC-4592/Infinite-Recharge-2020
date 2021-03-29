@@ -45,7 +45,7 @@ public class Constants {
     // Limit Switch
     public static final int LIMITER = 0;
 
-    // Gyro
+    // Gyro - Need to recalibrate you (Definetely update you as well)
     public static final Port MXP_PORT = SPI.Port.kMXP;
 
     // Color Sensor Value
@@ -90,19 +90,20 @@ public class Constants {
     public static final double Drivetrain_Wheel_Circumference = Drivetrain_Wheel_Radius * 2 * Math.PI;
     public static final double Drivetrain_Gear_Ratio = 16.07;
 
-    // Cannon Pivot PID Values
+    // Cannon Pivot PID Values (Nonexistant)
     public static final double CannonPivot_Kf = 0;
     public static final double CannonPivot_Kp = 0.5;
     public static final double CannonPivot_Ki = 0;
     public static final double CannonPivot_Kd = 0;
     public static final double Average_Ticks_Per_Degree = 63;
 
+    // Run the characterization window to get these values that seem to have DISAPEARRED????
     // Drivetrain Characterization/Trajectory Values
-    public static final double ksVolts = 0.0;
-    public static final double kvVoltSecondsPerMeter = 0.0;
-    public static final double kaVoltsSecondsSquaredPerMeter = 0.0;
-    public static final double kPDriveVel = 0.0;
-    public static final double kTrackWidthMeters = 0.0;
+    public static final double ksVolts = 0.244;
+    public static final double kvVoltSecondsPerMeter = 0.139;
+    public static final double kaVoltsSecondsSquaredPerMeter = 0.0455;
+    public static final double kPDriveVel = 1.82;
+    public static final double kTrackWidthMeters = 0.4699;
     public static final DifferentialDriveKinematics kDriveKinematics =
     new DifferentialDriveKinematics(kTrackWidthMeters);
     public static final int kEncoderCountsPerRevolution = 42;
@@ -111,8 +112,8 @@ public class Constants {
     (kWheelDiameterMeters * Math.PI) / (double) kEncoderCountsPerRevolution;
 
     // Not extremely crucial but please find
-    public static final double kMaxSpeedMetersPerSecond = 0;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 0;
+    public static final double kMaxSpeedMetersPerSecond = 1.5;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 7;
     
     // Tune later but might work fine as is
     public static final double kRamseteB = 2;

@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import frc.robot.Constants;
 import frc.robot.Subsystems.CannonPivot;
 import frc.robot.Subsystems.CannonPivot.CannonPivotStates;
-import frc.robot.Subsystems.CannonPolycord.CannonpolycordStates;
+import frc.robot.Subsystems.CannonPolycord.CannonPolycordStates;
 import frc.robot.Subsystems.CannonPolycord;
 import frc.robot.Subsystems.CannonPivot.CannonPivotStates;
 import frc.robot.Subsystems.CannonShooter;
@@ -36,7 +36,7 @@ public class AutoTest extends AutoFramework {
     private Drivetrain myDrive;
     private CannonPivot cannonPivot = new CannonPivot();
     private CannonPolycord cannonPolycord = new CannonPolycord();
-    private CannonShooter cannonShooter = new CannonShooter();
+    private CannonShooter cannonShooter = new CannonShooter(); // When we needed to combine these with trajectory but don't need tp this year
     //if myDrive fails, switch to robotDrive and make this.myDrive = robotDrive;
     //private final Drivetrain robotDrive = new Drivetrain(Hardware.rightMasterMotor, Hardware.rightSlaveMotor, Hardware.leftMasterMotor, Hardware.leftSlaveMotor, 
     //Hardware.MXP, Hardware.shifter);
@@ -56,21 +56,21 @@ public class AutoTest extends AutoFramework {
     @Override
     public void update() {
         getAuto();
-        CannonPivot.state = CannonPivotStates.ShootPosition;
-        CannonShooter.state = CannonShooterStates.Shoot;
-        CannonPolycord.state = CannonpolycordStates.Shooting;
+        //CannonPivot.state = CannonPivotStates.ShootPosition;
+        //CannonShooter.state = CannonShooterStates.Shoot;
+        //CannonPolycord.state = CannonPolycordStates.Shooting;
     }
     public Trajectory getTrajectory() {
-    String trajectoryJSON = "paths/InitiationLine.wpilib.json";
+    String trajectoryJSON = "paths/ForwardTestPath.wpilib.json"; // If successful switch to Slalom path
+    Trajectory trajectory = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
-        Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-        return trajectory;
+        trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
     }   
     catch (IOException ex) {
         DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
-        return null;
     }
+    return trajectory;
     }
     
     public Command getAuto() {
@@ -83,7 +83,7 @@ public class AutoTest extends AutoFramework {
             Constants.kDriveKinematics,
             10);
 
-    // Create config for trajectory
+    // Create config for trajectory, all one line btw
     TrajectoryConfig config =
         new TrajectoryConfig(Constants.kMaxSpeedMetersPerSecond,
                              Constants.kMaxAccelerationMetersPerSecondSquared)
@@ -92,7 +92,8 @@ public class AutoTest extends AutoFramework {
             // Apply the voltage constraint
             .addConstraint(autoVoltageConstraint);
 
-    /* An example trajectory to follow.  All units in meters.
+    /*  Test Code
+        An example trajectory to follow.  All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
         new Pose2d(0, 0, new Rotation2d(0)),

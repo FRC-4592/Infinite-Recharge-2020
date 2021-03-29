@@ -141,27 +141,25 @@ public class Limelight implements SubsystemFramework{
     public double getTx() { //convert to int later
         return this.tx;
     }
+    // Words were supposed to go here, forgot what though
     public int getLimelightDistance() {
-        SmartDashboard.putNumber("dist", (int)(139 + (getTy() * 7.5)));
-        return (int)(139 + (getTy() * 7.5));
+        SmartDashboard.putNumber("dist", (int)(139 + (getTy() * -7.5))); // To make ty positive
+        return (int)(139 + (getTy() * -7.5)); 
     }
-    public double findAngle() {
-        SmartDashboard.putNumber("Angle", Math.atan(Math.toRadians(getLimelightDistance()/98.25)));
-        if(Math.atan(Math.toRadians(getLimelightDistance()/98.25)) >= 45) {
-            return Math.atan(Math.toRadians(getLimelightDistance()/98.25));
-        }
-        return 45; //Adjust distance a little for cannon purposes
-    }
-    public double findVelocity() {
-        double height = 15 * Math.sin(findAngle());
+    /*public double findVelocity() {
+        double height = 15 * Math.sin(48);
         double gravity = 386.09;
         double actualDistance = getLimelightDistance() + 30;
         double numerator = Math.pow(actualDistance, 2) * gravity;
-        double denominator = getLimelightDistance() * Math.sin(2 * findAngle())-2 * height * Math.pow(Math.cos(findAngle()), 2);
+        double denominator = getLimelightDistance() * Math.sin(48) * height * Math.pow(Math.cos(48), 2);
         double inchPerSecond = Math.sqrt(numerator/denominator);
         double unitConversion = 819.2/(6.0*Math.PI);
         double velocity = ((inchPerSecond * unitConversion) * 2.451 + 8231.1);
-        SmartDashboard.putNumber("Velocity", velocity);
+        //SmartDashboard.putNumber("Velocity?", velocity);
+        //SmartDashboard.putNumber("inchPerSecond?", inchPerSecond);
+        //SmartDashboard.putNumber("unitConversion", unitConversion);
+        // distance, angle
+        
         return velocity;
-    }
+    }*/
 }

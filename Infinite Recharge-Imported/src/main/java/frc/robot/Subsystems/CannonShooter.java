@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Hardware;
 import frc.robot.Lib.SubsystemFramework;
-import frc.robot.Subsystems.CannonPolycord.CannonpolycordStates;
+import frc.robot.Subsystems.CannonPolycord.CannonPolycordStates;
 import frc.robot.Subsystems.Limelight.LimelightStates;
 import frc.robot.Subsystems.CannonPolycord;
 import frc.robot.Subsystems.Limelight;
@@ -37,14 +37,14 @@ public class CannonShooter implements SubsystemFramework {
     }
     public void update() {
         CannonShooterStates newState = state;
-        
+        //limelight.findVelocity();
         switch(state) {
             case Off:
                 masterShooter.set(0);
                 slaveShooter.set(0);
                 SmartDashboard.putString("Shooter", "Off");
                 limelight.state = LimelightStates.LEDon;
-                //CannonPolycord.state = CannonpolycordStates.Off;
+                //CannonPolycord.state = CannonPolycordStates.Off;
                 if(Shoot()) {
                     newState = CannonShooterStates.Shoot;
                 }
@@ -53,10 +53,10 @@ public class CannonShooter implements SubsystemFramework {
                 //limelight.state = LimelightStates.LEDon;
                 //masterShooter.set(ControlMode.Velocity, limelight.findVelocity());
                 //slaveShooter.set(ControlMode.Velocity, limelight.findVelocity() - (limelight.findVelocity() * 0.20));
-                masterShooter.set(1);
-                slaveShooter.set(-1);
+                masterShooter.set(Hardware.driverPad.getRawAxis(3)); //Play with speed in hand to find perfect speed
+                //slaveShooter.set(Hardware.driverPad.getRawAxis(3));
                 SmartDashboard.putString("Shooter", "Shoot");
-                //CannonPolycord.state = CannonpolycordStates.Shooting;
+                //CannonPolycord.state = CannonPolycordStates.Shooting;
                 if(!Shoot()) {
                     newState = CannonShooterStates.Off;
                 }
@@ -74,9 +74,9 @@ public class CannonShooter implements SubsystemFramework {
     public void setupSensors() {
         masterShooter.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
         
-        //slaveShooter.follow(masterShooter);
+        slaveShooter.follow(masterShooter);
 
-        slaveShooter.setInverted(false);
+        slaveShooter.setInverted(true);
         masterShooter.setInverted(false);
         //slaveShooter.follow(masterShooter); // Created
         

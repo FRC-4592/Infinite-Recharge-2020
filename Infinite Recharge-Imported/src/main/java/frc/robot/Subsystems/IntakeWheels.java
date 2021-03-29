@@ -6,11 +6,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Hardware;
 import frc.robot.Lib.SubsystemFramework;
+import frc.robot.Subsystems.CannonPolycord.CannonPolycordStates;
 import frc.robot.Util.doubleSolenoid;
 
 public class IntakeWheels implements SubsystemFramework{
     private WPI_TalonSRX intakeMotor;
     private doubleSolenoid shifter3;
+    private CannonPolycord cannonPolycord = new CannonPolycord();
 
     public static IntakeWheelsStates state = IntakeWheelsStates.Off;
 
@@ -54,6 +56,7 @@ public class IntakeWheels implements SubsystemFramework{
             case Intake:
                 shifter3.open();
                 intakeMotor.set(0.7);
+                CannonPolycord.state = CannonPolycordStates.Shooting;
                 SmartDashboard.putString("Intake", "Intake");
                 
                 if(Reverse()) {
@@ -66,7 +69,7 @@ public class IntakeWheels implements SubsystemFramework{
                     newState = IntakeWheelsStates.Off; 
                 }
                 break;
-            case ReverseIntake:
+            case ReverseIntake: // For now keep this, later on delete this because I believe it's useless
                 shifter3.open();
                 intakeMotor.set(-0.5);
                 SmartDashboard.putString("Intake", "Reverse");

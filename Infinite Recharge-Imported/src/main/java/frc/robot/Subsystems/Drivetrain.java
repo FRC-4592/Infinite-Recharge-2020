@@ -122,6 +122,7 @@ public class Drivetrain extends SubsystemBase implements SubsystemFramework {
         SmartDashboard.putNumber("Angle", getAngle());
         SmartDashboard.putNumber("Encoder Position", rightCanEncoder.getPosition());
         SmartDashboard.putNumber("Encoder Velocity", leftCanEncoder.getVelocity());
+        SmartDashboard.putNumber("Encoder Value", rightMasterMotor.getEncoder().getPosition());
     }
     @Override
     public void setupSensors() {
